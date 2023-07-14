@@ -1,0 +1,106 @@
+body{
+    background: #2a4b59;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+.login-section {
+    position: relative;
+}
+li{
+    list-style-type: none;
+}
+
+.my-groups{
+    height: 180px;
+    background: #2E77B3;
+    color: white;
+    display: flex;
+    flex-grow: 1;
+}
+.my-groups li{
+    max-width: 80px;
+    padding: 20px;
+    overflow: hidden;
+}
+.my-groups-name p{
+    text-align: center;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.my-groups-img{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+.my-groups-img img{
+    width: 100%;
+}
+.members {
+    text-align: center;
+    font-weight: 900;
+    margin-top: -10px;
+}
+
+/* Message-area */
+.group-message-section{
+    height: 500px;
+    background: #0BA46E;
+    max-width: 500px;
+    margin: auto;
+}
+.group-name{
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 26px;
+}
+.message-area{
+    max-width: inherit;
+    height: 400px;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    overflow-y: scroll;
+}
+.others-message{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+.message-text{
+    display: inline-block;
+    background: #3089DC;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 8px;
+    border-radius: 10px;
+}
+.my-message{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    text-align: right;
+}
+.you{
+    padding: 0px;
+    margin: 0px;
+}
+.my-message-text{
+    display: inline-block;
+    background: #566BF0;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 8px;
+    border-radius: 10px;
+
+}
+.message{
+    width: 88%;
+}
+/* Message-area */
+.hidden{
+    display: none;
+}
+
