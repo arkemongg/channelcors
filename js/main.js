@@ -1,4 +1,4 @@
-import { postData,createGroupElement } from "./templates.js";
+import { postData,createGroupElement, postDatawithToken, getData, createMyMessage, createOtherMessage } from "./templates.js";
 import { development_api_domain,development_own_domain,development_ws_domain } from "./domain.js";
 
 
@@ -39,6 +39,10 @@ if(jwtToken===undefined){
     .then(data=>{
       if(data.access!==undefined){
         setCookie(data.access)
+        const x = getData(`${development_api_domain}auth/users/`,data.access)
+        x.then(data=>{
+          localStorage.setItem('account_id',data[0].id)
+        })
         section.classList.add('hidden')
         window.location.reload();
       }
@@ -60,11 +64,75 @@ if(jwtToken===undefined){
     }
   }
 }
+
+let group_socket = '';
+let current_group_id = ''
+
 const my_groups = document.querySelector('.my-groups')
 my_groups.addEventListener('click',event=>{
-  const group_id = event.target.closest('li').id
-
+  if(my_groups.childElementCount===0){
+    return
+  }
+  let group_id = event.target.closest('li')
+  if(group_id===null){
+    return
+  }
+  group_id = group_id.id
+  if(current_group_id===group_id){
+    return;
+  }else{
+    current_group_id = group_id
+  }
   
+  group_socket = new WebSocket(`${development_ws_domain}myapp/groups/${group_id}/${jwtToken}`)
+  group_socket.onmessage = function(event){
+    let data = JSON.parse(event.data)
+    console.log(data);
+    const message_area = document.querySelector('.message-area')
+    const account_id = localStorage.getItem('account_id')
+
+    if(data.label === "connected"){
+      data = data.data[0]
+      const group_name = document.querySelector('.group-name')
+      group_name.textContent = data.title
+      data.messages.forEach(element=>{
+        const time = new Date(element.created_at);
+        const local = time.toLocaleString();
+        if(account_id==element.account_id){
+          const li = createMyMessage(local,element.text)
+          message_area.appendChild(li)
+          //{account_name: 'Ark Em', text: 'hu', account_id: 2, created_at: '2023-07-11T14:11:36.569383Z'}
+        }else{
+          const li = createOtherMessage(local,element.account_name,element.text)
+          message_area.appendChild(li)
+        }
+      })
+      message_area.scrollTop = message_area.scrollHeight;
+    }
+    if(data.label === "chat_message"){
+      const element = data.data.data
+      const time = new Date(element.created_at);
+      const local = time.toLocaleString();
+      if(account_id==element.account_id){
+        const li = createMyMessage(local,element.text)
+        message_area.appendChild(li)
+        //{account_name: 'Ark Em', text: 'hu', account_id: 2, created_at: '2023-07-11T14:11:36.569383Z'}
+      }else{
+        const li = createOtherMessage(local,element.account_name,element.text)
+        message_area.appendChild(li)
+      }
+      message_area.scrollTop = message_area.scrollHeight;
+    }
+  }
+})
+
+const send_message = document.querySelector('.send-message')
+
+send_message.addEventListener('click',event=>{
+  console.log(event);
+  const message = document.querySelector(".message")
+  group_socket.send(message.value)
+  message.value = ''
 })
 
 

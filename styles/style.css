@@ -1,5 +1,5 @@
 body{
-    background: #2a4b59;
+    background: #212529;
     margin: 0px;
     padding: 0px;
     width: 100%;
@@ -13,7 +13,7 @@ li{
 
 .my-groups{
     height: 180px;
-    background: #2E77B3;
+    background: #343A40;
     color: white;
     display: flex;
     flex-grow: 1;
@@ -46,7 +46,7 @@ li{
 /* Message-area */
 .group-message-section{
     height: 500px;
-    background: #0BA46E;
+    background: #6F2CF4;
     max-width: 500px;
     margin: auto;
 }
@@ -71,7 +71,7 @@ li{
 }
 .message-text{
     display: inline-block;
-    background: #3089DC;
+    background: blue;
     min-width: 20px;
     min-height: 20px;
     padding: 8px;
@@ -89,7 +89,7 @@ li{
 }
 .my-message-text{
     display: inline-block;
-    background: #566BF0;
+    background: rgb(109, 0, 128);
     min-width: 20px;
     min-height: 20px;
     padding: 8px;
